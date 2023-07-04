@@ -1,0 +1,15 @@
+// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   setPost({ ...posts, [e.target.name]: e.target.value });
+//   // setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+// };
+
+// function follow(value: TUser) {
+//   const updatedUsers = users.map((user) => {
+//     if (user.id === value.id) {
+//       return { ...user, isFollow: !user.isFollow };
+//     }
+//     return user;
+//   });
+
+//   setUsers(updatedUsers);
+// }
