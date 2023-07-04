@@ -1,3 +1,12 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+/* .box {
+    background: red;
+    height: 100%;
+  } */

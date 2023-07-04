@@ -54,11 +54,15 @@ function App() {
       <div style={{ display: "flex" }}>
         <div
           style={{
+            minHeight: "100vh",
+            height: "auto",
             display: "flex",
             flexDirection: "column",
-            height: "1000px",
             width: "150px",
             backgroundColor: "lavender",
+            borderRadius: "10px",
+            position: "sticky",
+            top: 0,
           }}
         >
           <h2
@@ -78,9 +82,11 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            height: "1000px",
+            minHeight: "100vh",
+            height: "auto%",
             width: "400px",
             alignItems: "center",
+            borderRadius: "10px",
           }}
         >
           <h1>Posts</h1>
@@ -104,10 +110,12 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            height: "1000px",
+            minHeight: "100vh",
+            height: "auto",
             width: "300px",
             backgroundColor: "lightpink",
             alignItems: "center",
+            borderRadius: "10px",
           }}
         >
           <h2>Following</h2>
