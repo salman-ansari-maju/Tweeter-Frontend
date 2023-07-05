@@ -1,20 +1,41 @@
 import { useState, useEffect } from "react";
 import { Users } from "./Components/users";
-import { TUser } from "./types";
+import { TUser, TPost } from "./types";
 import "./styles.css";
 import Post from "./Post";
 
-type TPost = {
-  id: number;
-  content: string;
-};
-
 function App() {
   const [users, setUsers] = useState<TUser[]>([
-    { id: 1, name: "John", isFollow: false },
-    { id: 2, name: "Jane", isFollow: false },
-    { id: 3, name: "Bob", isFollow: false },
+    {
+      id: 1,
+      name: "Salman",
+      isFollow: false,
+      isCurrentUser: true,
+      Content: [{ id: 10, content: "content of Salman" }],
+    },
+    {
+      id: 4,
+      name: "John",
+      isFollow: false,
+      isCurrentUser: false,
+      Content: [{ id: 11, content: "content of john" }],
+    },
+    {
+      id: 2,
+      name: "Jane",
+      isFollow: false,
+      isCurrentUser: false,
+      Content: [{ id: 12, content: "content of Jane" }],
+    },
+    {
+      id: 3,
+      name: "Bob",
+      isFollow: false,
+      isCurrentUser: false,
+      Content: [{ id: 13, content: "content of Bob" }],
+    },
   ]);
+
   const [streak, setStreak] = useState<TPost[]>([]);
 
   const [posts, setPost] = useState<TPost>({ id: 1, content: "" });
@@ -29,24 +50,48 @@ function App() {
 
     setUsers(UpdateUsers);
   }
-  // let pId: number = 10;
-  function handlePost() {
-    const newPost = { ...posts, id: Date.now() };
-    // posts.id = Date.now;
-    setStreak([...streak, newPost]);
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPost({ ...posts, [e.target.name]: e.target.value });
     console.log(posts);
   };
+
+  function handlePost() {
+    const newPost = { ...posts, id: Date.now() };
+    const ContentUpdater = users.map((user) => {
+      user.isCurrentUser ? user.Content.push(newPost) : null;
+      return user;
+    });
+    setUsers(ContentUpdater);
+  }
+
   const funt = (val: TPost) => {
     // const updater = streak.map((e) => {
     //   if (e.id === val.id) streak.indexOf(e)
     //   return;
+    //  });
+    // const updater = streak.filter((s) => s.id !== val.id);
+    // setStreak(updater);
+
+    // const updatermy = users.map((user) => {
+    //   user.isCurrentUser
+    //     ? user.Content.filter((e) => {
+    //         return e.id !== val.id;
+    //       })
+    //     : null;
+    //   return user;
     // });
-    const updater = streak.filter((s) => s.id !== val.id);
-    setStreak(updater);
+
+    const updater = users.map((user) => {
+      return user.isCurrentUser
+        ? {
+            ...user,
+            Content: user.Content.filter((post) => post.id !== val.id),
+          }
+        : user;
+    });
+
+    setUsers(updater);
   };
 
   return (
@@ -74,9 +119,11 @@ function App() {
           >
             Friends suggestion
           </h2>
-          {users.map((value) => (
-            <Users key={value.id} user={value} follow={follow} />
-          ))}
+          {users.map((value) =>
+            value.isCurrentUser || value.isFollow ? null : (
+              <Users key={value.id} user={value} follow={follow} />
+            )
+          )}
         </div>
         <div
           style={{
@@ -101,9 +148,11 @@ function App() {
             <button onClick={handlePost}>Post</button>
           </div>
           <div>
-            {streak.map((value) => (
-              <Post post={value} fun={funt} />
-            ))}
+            {users.map((e) =>
+              e.isFollow || e.isCurrentUser ? (
+                <Post post={e.Content} fun={funt} />
+              ) : null
+            )}
           </div>
         </div>
         <div

@@ -2,6 +2,8 @@ export type TUser = {
   id: number;
   name: string;
   isFollow: boolean;
+  isCurrentUser: boolean;
+  Content: TPost[];
 };
 
 export type TPost = {
