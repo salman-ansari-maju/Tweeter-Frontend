@@ -2,41 +2,11 @@ import { useState, useEffect } from "react";
 import { Users } from "./Components/users";
 import { TUser, TPost } from "./types";
 import "./styles.css";
-import Post from "./Post";
+import Post from "./Components/Post";
+import { UsersData } from "./data/user's data";
 
 function App() {
-  const [users, setUsers] = useState<TUser[]>([
-    {
-      id: 1,
-      name: "Salman",
-      isFollow: false,
-      isCurrentUser: true,
-      Content: [{ id: 10, content: "content of Salman" }],
-    },
-    {
-      id: 4,
-      name: "John",
-      isFollow: false,
-      isCurrentUser: false,
-      Content: [{ id: 11, content: "content of john" }],
-    },
-    {
-      id: 2,
-      name: "Jane",
-      isFollow: false,
-      isCurrentUser: false,
-      Content: [{ id: 12, content: "content of Jane" }],
-    },
-    {
-      id: 3,
-      name: "Bob",
-      isFollow: false,
-      isCurrentUser: false,
-      Content: [{ id: 13, content: "content of Bob" }],
-    },
-  ]);
-
-  const [streak, setStreak] = useState<TPost[]>([]);
+  const [users, setUsers] = useState<TUser[]>(UsersData);
 
   const [posts, setPost] = useState<TPost>({ id: 1, content: "" });
 
@@ -57,12 +27,14 @@ function App() {
   };
 
   function handlePost() {
-    const newPost = { ...posts, id: Date.now() };
-    const ContentUpdater = users.map((user) => {
-      user.isCurrentUser ? user.Content.push(newPost) : null;
-      return user;
-    });
-    setUsers(ContentUpdater);
+    if (posts.content != "") {
+      const newPost = { ...posts, id: Date.now() };
+      const ContentUpdater = users.map((user) => {
+        user.isCurrentUser ? user.Content.push(newPost) : null;
+        return user;
+      });
+      setUsers(ContentUpdater);
+    }
   }
 
   const funt = (val: TPost) => {
@@ -97,47 +69,17 @@ function App() {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <div
-          style={{
-            minHeight: "100vh",
-            height: "auto",
-            display: "flex",
-            flexDirection: "column",
-            width: "150px",
-            backgroundColor: "lavender",
-            borderRadius: "10px",
-            position: "sticky",
-            top: 0,
-          }}
-        >
-          <h2
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Friends suggestion
-          </h2>
+        <div className="suggestion">
+          <h2 className="heading">Friends suggestion</h2>
           {users.map((value) =>
             value.isCurrentUser || value.isFollow ? null : (
               <Users key={value.id} user={value} follow={follow} />
             )
           )}
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-            height: "auto%",
-            width: "400px",
-            alignItems: "center",
-            borderRadius: "10px",
-          }}
-        >
-          <h1>Posts</h1>
-          <div style={{ display: "flex" }}>
+        <div className="time-line">
+          <h1 className="heading">Time Line</h1>
+          <div className="heading">
             <input
               type="string"
               name="content"
@@ -155,19 +97,8 @@ function App() {
             )}
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-            height: "auto",
-            width: "300px",
-            backgroundColor: "lightpink",
-            alignItems: "center",
-            borderRadius: "10px",
-          }}
-        >
-          <h2>Following</h2>
+        <div className="following">
+          <h2 className="heading">Following</h2>
           {users.map((value) =>
             value.isFollow ? (
               <Users key={value.id} user={value} follow={follow} />

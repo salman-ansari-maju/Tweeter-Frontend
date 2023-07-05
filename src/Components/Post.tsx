@@ -1,9 +1,9 @@
 import React from "react";
-import { TPost } from "./types";
+import { TPost } from "../types";
 
 const Post = ({ post, fun }: Ipost) => {
   return (
-    <>
+    <div>
       {post.map((e) => (
         <div
           style={{
@@ -30,7 +30,7 @@ const Post = ({ post, fun }: Ipost) => {
           </button>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

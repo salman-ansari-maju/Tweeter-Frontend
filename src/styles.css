@@ -1,12 +1,86 @@
-@import "tailwindcss/base";
+/* @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-body {
-  margin: 0px;
-  height: 100%;
-}
+
 
 /* .box {
     background: red;
     height: 100%;
   } */
+
+body {
+  margin: 0px;
+  height: 100%;
+}
+.suggestion {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  border-left: 3px;
+  border-color: lightgray;
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-line {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  /* justify-content: center; */
+
+  min-height: 100vh;
+  height: auto;
+
+  margin-left: 30%;
+  width: 40%;
+  border-radius: 10px;
+}
+.following {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  height: auto;
+
+  width: 30%;
+  position: fixed;
+  margin-left: 70%;
+
+  border-radius: 10px;
+  background-color: rgb(219, 234, 249);
+}
+.users {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  align-items: center;
+  background-color: lightblue;
+  margin: 0px 10px 10px 10px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 20px;
+}
+
+.user-btn {
+  cursor: pointer;
+  height: 50%;
+  border-radius: 20%;
+}
+.post {
+  height: 100%;
+  width: 100%;
+  margin: 5%;
+  background-color: lightgray;
+  border-radius: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
