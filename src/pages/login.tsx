@@ -16,7 +16,7 @@ export const Login = () => {
 
   async function fetchData(url: string, param: FormValues) {
     try {
-      const requestBody = JSON.stringify({ param });
+      const requestBody = JSON.stringify(param);
 
       const response = await fetch(url, {
         method: "POST", // Use POST method for sending JSON data
@@ -32,6 +32,7 @@ export const Login = () => {
 
       const data = await response.json();
       console.log(data);
+      navigate("/account");
       return data;
     } catch (error) {
       throw new Error(`Fetch error.`);
@@ -77,6 +78,9 @@ export const Login = () => {
           <br />
           <input type="submit" value="submit" />
         </form>
+        <p>
+          Don't have account <a href="/signup"> SignUp </a>
+        </p>
       </div>
     </div>
   );
