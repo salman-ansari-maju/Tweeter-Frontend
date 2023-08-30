@@ -11,8 +11,10 @@ type FormValues = {
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
-  const api_Url = "http://localhost:3000/";
+  const api_Url = "http://localhost:3000";
   const { reset, register, handleSubmit } = useForm<FormValues>();
+
+  // hitting api to get users information
 
   async function fetchData(url: string, param: FormValues) {
     try {
@@ -32,7 +34,8 @@ export const Login = () => {
 
       const data = await response.json();
       console.log(data);
-      navigate("/account");
+      localStorage.setItem("user", JSON.stringify(data));
+      location.reload();
       return data;
     } catch (error) {
       throw new Error(`Fetch error.`);
@@ -42,7 +45,6 @@ export const Login = () => {
   const setterFunc = (data: any) => {
     setEmail(data);
     reset();
-    // console.log(data);
     fetchData(api_Url, data);
   };
 

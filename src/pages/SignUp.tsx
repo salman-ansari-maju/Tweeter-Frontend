@@ -10,7 +10,7 @@ type FormValues = {
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const api_Url = "http://localhost:3000/signup";
+  const api_Url = "http://localhost:3000";
   const { reset, register, handleSubmit } = useForm<FormValues>();
 
   async function fetchData(url: string, param: FormValues) {

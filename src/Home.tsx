@@ -49,9 +49,42 @@ function Home() {
 
     setUsers(updater);
   };
+  const logout = () => {
+    localStorage.clear();
+    location.reload();
+  };
 
   return (
     <>
+      <div
+        style={{
+          height: "50px",
+          // backgroundColor: "#eee",
+          boxShadow: " -1px 0 9px 0 rgba(0, 0, 0, .1)",
+          display: "flex",
+          justifyContent: "end",
+          alignItems: "center",
+          marginBottom: 10,
+        }}
+      >
+        <div
+          style={{
+            margin: 20,
+            backgroundColor: "beige",
+            height: 40,
+            width: 80,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            logout();
+          }}
+        >
+          logout
+        </div>
+      </div>
       <div style={{ display: "flex" }}>
         <div className="suggestion">
           <h2 className="heading">Friends suggestion</h2>
