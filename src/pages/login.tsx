@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -11,10 +11,20 @@ type FormValues = {
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
+  const [stat, setStat] = useState("");
   const api_Url = "http://localhost:3000";
   const { reset, register, handleSubmit } = useForm<FormValues>();
 
   // hitting api to get users information
+
+  useEffect(() => {
+    const setter = localStorage.getItem("status");
+    console.log(setter);
+    if (setter) {
+      const parsed = JSON.parse(setter);
+      setStat(parsed);
+    }
+  }, []);
 
   async function fetchData(url: string, param: FormValues) {
     try {
@@ -35,6 +45,12 @@ export const Login = () => {
       const data = await response.json();
       console.log(data);
       localStorage.setItem("user", JSON.stringify(data));
+
+      if (data.message) {
+        localStorage.setItem("status", JSON.stringify(data.message));
+        // console.log(stat);
+      }
+
       location.reload();
       return data;
     } catch (error) {
@@ -43,7 +59,7 @@ export const Login = () => {
   }
 
   const setterFunc = (data: any) => {
-    setEmail(data);
+    // setEmail(data);
     reset();
     fetchData(api_Url, data);
   };
@@ -83,22 +99,13 @@ export const Login = () => {
         <p>
           Don't have account <a href="/signup"> SignUp </a>
         </p>
+        <div
+          style={{ display: "flex", justifyContent: "center", color: "red" }}
+        >
+          {" "}
+          <p>{stat}</p>
+        </div>
       </div>
     </div>
   );
 };
-
-// <h3> Login</h3>
-//         <input
-//           type="text"
-//           onChange={(e) => {
-//             handleChange(e);
-//           }}
-//           placeholder="Enter email"
-//         />
-//         <input type="text" placeholder="password" required />
-
-//         <button onClick={() => fetchData(api_Url, email)}>Enter</button>
-//         <p>
-//           Dont have account <a href="/signUp"> Click here</a>{" "}
-//         </p>

@@ -6,16 +6,18 @@ import { SignUp } from "./pages/SignUp";
 function App() {
   const userString = localStorage.getItem("user");
   let auth = null;
-
   // Convert the JSON string back to an object
+
   if (userString) {
     const user = JSON.parse(userString);
-    const token = user.user.token;
-    // console.log(token);
-    if (token) {
-      auth = true;
-    } else {
+    let token;
+    if (user.message) {
       auth = false;
+      console.log(user.message);
+    } else {
+      token = user.user.token;
+      auth = true;
+      console.log("acess granted");
     }
   }
 
